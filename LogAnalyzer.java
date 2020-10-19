@@ -198,7 +198,7 @@ public class LogAnalyzer
      */
     public int busiestTwoHour()
     {
-        System.out.println("Error, Craig has not gotten this method done");
+        System.out.print("Error, Craig has not gotten this method");
         return 0;
     }
     
