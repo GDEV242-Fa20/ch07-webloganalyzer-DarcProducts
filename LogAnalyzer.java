@@ -150,24 +150,51 @@ public class LogAnalyzer
     }
     
     /**
+     * gets greatest amount
+     * private method with parameter
+     */
+    private int getGreatest(int[] counts)
+    {
+        int myGreatest = 0; int myGreatestCount = counts[0];
+        for (int i = 0; i < counts.length; ++i)
+        {
+            if (counts[i]>myGreatestCount)
+            {
+                myGreatestCount = counts[i];
+                //stores index of greatest count {current count}
+                myGreatest = i;
+            }
+        }
+        return myGreatest;
+    }
+    
+    /**
+     * gets least amount
+     * private method with parameter
+     */
+    private int getLeast(int[] counts)
+    {
+        int myLeast = 0; int myLeastCount = counts[0];
+        for (int i = 0; i < counts.length; ++i)
+        {
+            if (counts[i]<myLeastCount)
+            {
+                myLeastCount = counts[i];
+                //stores index of least count {current count}
+                myLeast = i;
+            }
+        }
+        return myLeast;
+    }
+    
+    /**
      * returns the busiest hour out of the data, will return {earliest} hour
      * @method
      * @return
      */
     public int busiestHour()
     {
-        //stores for buisiest hour and busiest count to compare
-        int myBusiestHour = 0; int myBusiestCount = hourCounts[0];
-        for (int i = 0; i < hourCounts.length; ++i)
-        {
-            if (hourCounts[i]>myBusiestCount)
-            {
-                myBusiestCount = hourCounts[i];
-                //stores index of busiest hour {current hour}
-                myBusiestHour = i;
-            }
-        }
-        return myBusiestHour;
+        return getGreatest(hourCounts);
     }
     
     /**
@@ -177,18 +204,7 @@ public class LogAnalyzer
      */
     public int quietestHour()
     {
-        //stores for quietest hour and quietest count to compare
-        int myQuietestHour = 0; int myQuietestCount = hourCounts[0];
-        for (int i = 0; i < hourCounts.length; ++i)
-        {
-            if (hourCounts[i]<myQuietestCount)
-            {
-                myQuietestCount = hourCounts[i];
-                //stores index of quietest hour {current hour}
-                myQuietestHour = i;
-            }
-        }
-        return myQuietestHour;
+        return getLeast(hourCounts);
     }
     
     /**
@@ -209,18 +225,7 @@ public class LogAnalyzer
      */
     public int quietestDay()
     {
-        //stores for quietest day and quietest count to compare
-        int myQuietestDay = 1; int myQuietestCount = dayCounts[1];
-        for (int i = 1; i < dayCounts.length; ++i)
-        {
-            if (dayCounts[i]<myQuietestCount)
-            {
-                myQuietestCount = dayCounts[i];
-                //stores index of quietest day {current day}
-                myQuietestDay = i;
-            }
-        }
-        return myQuietestDay;
+        return getLeast(dayCounts);
     }
     
     /**
@@ -230,18 +235,7 @@ public class LogAnalyzer
      */
     public int busiestDay()
     {
-        //stores for buisiest day and busiest count to compare
-        int myBusiestDay = 1; int myBusiestCount = dayCounts[1];
-        for (int i = 1; i < dayCounts.length; ++i)
-        {
-            if (dayCounts[i]>myBusiestCount)
-            {
-                myBusiestCount = dayCounts[i];
-                //stores index of busiest day {current day}
-                myBusiestDay = i;
-            }
-        }
-        return myBusiestDay;
+        return getGreatest(dayCounts);
     }
     
     /**
@@ -260,18 +254,7 @@ public class LogAnalyzer
      */
     public int quietestMonth()
     {
-        //stores for quietest month and quietest count to compare
-        int myQuietestMonth = 1; int myQuietestCount = monthCounts[1];
-        for (int i = 1; i < monthCounts.length; ++i)
-        {
-            if (monthCounts[i]<myQuietestCount)
-            {
-                myQuietestCount = monthCounts[i];
-                //stores index of quietest month {current month}
-                myQuietestMonth = i;
-            }
-        }
-        return myQuietestMonth;
+        return getLeast(monthCounts);
     }
     
     /**
@@ -281,18 +264,7 @@ public class LogAnalyzer
      */
     public int busiestMonth()
     {
-        //stores for buisiest month and busiest count to compare
-        int myBusiestMonth = 1; int myBusiestCount = monthCounts[1];
-        for (int i = 1; i < monthCounts.length; ++i)
-        {
-            if (monthCounts[i]>myBusiestCount)
-            {
-                myBusiestCount = monthCounts[i];
-                //stores index of busiest month {current month}
-                myBusiestMonth = i;
-            }
-        }
-        return myBusiestMonth;
+        return getGreatest(monthCounts);
     }
     
     /**
