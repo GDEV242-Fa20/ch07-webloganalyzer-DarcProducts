@@ -1,6 +1,5 @@
 import java.util.Arrays;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.*;
 /**
  * Read web server data and analyse hourly access patterns.
@@ -13,6 +12,7 @@ public class LogAnalyzer
     // Where to calculate the hourly access counts.
     private int[] hourCounts;
     private int[] dayCounts;
+    private int[] monthCounts;
     // Use a LogfileReader to access the data.
     private LogfileReader reader;
 
@@ -25,6 +25,7 @@ public class LogAnalyzer
         // access counts.
         hourCounts = new int[24];
         dayCounts = new int[31];
+        monthCounts = new int[12];
         // Create the reader to obtain the data.
         reader = new LogfileReader("demo.log");
     }
@@ -40,6 +41,7 @@ public class LogAnalyzer
         // access counts.
         hourCounts = new int[24];
         dayCounts = new int[31];
+        monthCounts = new int[12];
         // Create the reader to obtain the data.
         reader = new LogfileReader(fileName);
     }
@@ -58,6 +60,7 @@ public class LogAnalyzer
     
     /**
      * Analyze the daily access data from the log file.
+     * @method
      */
     public void analyzeDailyData()
     {
@@ -65,6 +68,19 @@ public class LogAnalyzer
             LogEntry entry = reader.next();
             int day = entry.getDay();
             dayCounts[day]++;
+        }
+    }
+    
+    /**
+     * Analyze the monthly access data from the log file.
+     * @method
+     */
+    public void analyzeMonthlyData()
+    {
+        while(reader.hasNext()) {
+            LogEntry entry = reader.next();
+            int month = entry.getMonth();
+            monthCounts[month]++;
         }
     }
     
@@ -85,12 +101,27 @@ public class LogAnalyzer
      * Print the daily counts.
      * These should have been set with a prior
      * call to analyzeDailyData.
+     * @method
      */
     public void printDailyCounts()
     {
         System.out.println("Day: Count");
         for(int day = 0; day < dayCounts.length; day++) {
             System.out.println(day + ": " + dayCounts[day]);
+        }
+    }
+    
+    /**
+     * Print the monthly counts.
+     * These should have been set with a prior
+     * call to analyzeDailyData.
+     * @method
+     */
+    public void printMonthlyCounts()
+    {
+        System.out.println("Month: Count");
+        for(int month = 0; month < monthCounts.length; month++) {
+            System.out.println(month + ": " + monthCounts[month]);
         }
     }
         
@@ -140,7 +171,7 @@ public class LogAnalyzer
     }
     
     /**
-     * returns the quietest hour out of the data, will return {latest} hour
+     * returns the quietest hour out of the data, will return {earliest} hour
      * @method
      * @return
      */
@@ -172,7 +203,7 @@ public class LogAnalyzer
     }
     
     /**
-     * returns the quietest day out of the data provided
+     * returns the quietest day out of the data provided, will return {earliest} day
      * @method
      * @return
      */
@@ -199,7 +230,7 @@ public class LogAnalyzer
      */
     public int busiestDay()
     {
-        //stores for buisiest hour and busiest count to compare
+        //stores for buisiest day and busiest count to compare
         int myBusiestDay = 0; int myBusiestCount = dayCounts[0];
         for (int i = 0; i < dayCounts.length; ++i)
         {
@@ -214,11 +245,69 @@ public class LogAnalyzer
     }
     
     /**
-     * total accesses per month
+     * prints total accesses per month {same as print monthly counts}
      * @method
      */
-    public int totalAccessesPerMonth()
+    public void totalAccessesPerMonth()
     {
-        return 0;
+        printMonthlyCounts();
+    }
+    
+    /**
+     * returns the quietest month out of the data provided, will return {earliest} month
+     * @method
+     * @return
+     */
+    public int quietestMonth()
+    {
+        //stores for quietest month and quietest count to compare
+        int myQuietestMonth = 0; int myQuietestCount = monthCounts[0];
+        for (int i = 0; i < monthCounts.length; ++i)
+        {
+            if (monthCounts[i]<myQuietestCount)
+            {
+                myQuietestCount = monthCounts[i];
+                //stores index of quietest month {current month}
+                myQuietestMonth = i;
+            }
+        }
+        return myQuietestMonth;
+    }
+    
+    /**
+     * returns the busiest month out of the data, will return {earliest} month
+     * @method
+     * @return
+     */
+    public int busiestMonth()
+    {
+        //stores for buisiest month and busiest count to compare
+        int myBusiestMonth = 0; int myBusiestCount = monthCounts[0];
+        for (int i = 0; i < monthCounts.length; ++i)
+        {
+            if (monthCounts[i]>myBusiestCount)
+            {
+                myBusiestCount = monthCounts[i];
+                //stores index of busiest month {current month}
+                myBusiestMonth = i;
+            }
+        }
+        return myBusiestMonth;
+    }
+    
+    /**
+     * average accesses per month
+     * @method
+     * @return
+     */
+    public int averageAccessesPerMonth()
+    {
+        //store a total value
+        int totalValue = 0;
+        //add up all the values in month counts
+        for (int myCounts : monthCounts)
+        totalValue += myCounts;
+        //return total value divided by the amount in the month counts
+        return totalValue / monthCounts.length;
     }
 }
