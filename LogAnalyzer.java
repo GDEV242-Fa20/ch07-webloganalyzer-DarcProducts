@@ -25,7 +25,7 @@ public class LogAnalyzer
         // access counts.
         hourCounts = new int[24];
         dayCounts = new int[31];
-        monthCounts = new int[12];
+        monthCounts = new int[13];
         // Create the reader to obtain the data.
         reader = new LogfileReader("demo.log");
     }
@@ -41,7 +41,7 @@ public class LogAnalyzer
         // access counts.
         hourCounts = new int[24];
         dayCounts = new int[31];
-        monthCounts = new int[12];
+        monthCounts = new int[13];
         // Create the reader to obtain the data.
         reader = new LogfileReader(fileName);
     }
@@ -106,7 +106,7 @@ public class LogAnalyzer
     public void printDailyCounts()
     {
         System.out.println("Day: Count");
-        for(int day = 0; day < dayCounts.length; day++) {
+        for(int day = 1; day < dayCounts.length; day++) {
             System.out.println(day + ": " + dayCounts[day]);
         }
     }
@@ -120,7 +120,7 @@ public class LogAnalyzer
     public void printMonthlyCounts()
     {
         System.out.println("Month: Count");
-        for(int month = 0; month < monthCounts.length; month++) {
+        for(int month = 1; month < monthCounts.length; month++) {
             System.out.println(month + ": " + monthCounts[month]);
         }
     }
@@ -210,8 +210,8 @@ public class LogAnalyzer
     public int quietestDay()
     {
         //stores for quietest day and quietest count to compare
-        int myQuietestDay = 0; int myQuietestCount = dayCounts[0];
-        for (int i = 0; i < dayCounts.length; ++i)
+        int myQuietestDay = 1; int myQuietestCount = dayCounts[1];
+        for (int i = 1; i < dayCounts.length; ++i)
         {
             if (dayCounts[i]<myQuietestCount)
             {
@@ -231,8 +231,8 @@ public class LogAnalyzer
     public int busiestDay()
     {
         //stores for buisiest day and busiest count to compare
-        int myBusiestDay = 0; int myBusiestCount = dayCounts[0];
-        for (int i = 0; i < dayCounts.length; ++i)
+        int myBusiestDay = 1; int myBusiestCount = dayCounts[1];
+        for (int i = 1; i < dayCounts.length; ++i)
         {
             if (dayCounts[i]>myBusiestCount)
             {
@@ -261,8 +261,8 @@ public class LogAnalyzer
     public int quietestMonth()
     {
         //stores for quietest month and quietest count to compare
-        int myQuietestMonth = 0; int myQuietestCount = monthCounts[0];
-        for (int i = 0; i < monthCounts.length; ++i)
+        int myQuietestMonth = 1; int myQuietestCount = monthCounts[1];
+        for (int i = 1; i < monthCounts.length; ++i)
         {
             if (monthCounts[i]<myQuietestCount)
             {
@@ -282,8 +282,8 @@ public class LogAnalyzer
     public int busiestMonth()
     {
         //stores for buisiest month and busiest count to compare
-        int myBusiestMonth = 0; int myBusiestCount = monthCounts[0];
-        for (int i = 0; i < monthCounts.length; ++i)
+        int myBusiestMonth = 1; int myBusiestCount = monthCounts[1];
+        for (int i = 1; i < monthCounts.length; ++i)
         {
             if (monthCounts[i]>myBusiestCount)
             {
