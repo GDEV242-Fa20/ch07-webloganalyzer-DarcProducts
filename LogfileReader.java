@@ -25,7 +25,7 @@ public class LogfileReader implements Iterator<LogEntry>
     private String format;
     // Where the file's contents are stored in the form
     // of LogEntry objects.
-    private ArrayList<LogEntry> entries;
+    public ArrayList<LogEntry> entries;
     // An iterator over entries.
     private Iterator<LogEntry> dataIterator;
     
@@ -157,5 +157,15 @@ public class LogfileReader implements Iterator<LogEntry>
         for(int i = 0; i < numEntries; i++) {
             data.add(creator.createEntry());
         }
+    }
+    
+    /**
+     * gets entries
+     * @method
+     * @return arraylist
+     */
+    public ArrayList getEntries()
+    {
+        return entries;
     }
 }
